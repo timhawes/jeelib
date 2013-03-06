@@ -49,6 +49,19 @@ protected:
     /// @return Arduino analog pin number of a Port's A pin (uint8_t).
     inline uint8_t anaPin() const
         { return 0; }
+#elif defined(__AVR_ATtiny84__) || defined(__AVR_ATtiny44)
+	/// @return Arduino digital pin number of a Port's D pin (uint8_t).
+    inline uint8_t digiPin() const
+        { return 10; }
+	/// @return Arduino digital pin number of a Port's A pin (uint8_t).
+    inline uint8_t digiPin2() const
+        { return 9; }
+	/// @return Arduino digital pin number of the I pin on all Ports (uint8_t).
+    static uint8_t digiPin3()
+        { return 3; }
+    /// @return Arduino analog pin number of a Port's A pin (uint8_t).
+    inline uint8_t anaPin() const
+        { return 9; }
 #else
 	/// @return Arduino digital pin number of a Port's D pin (uint8_t).
     inline uint8_t digiPin() const
