@@ -117,6 +117,7 @@ uint8_t RF12::poll() {
     if (rf12_recvDone() && rf12_crc == 0) {
         uint8_t len = rf12_len;
         
+#if !defined(__AVR_ATtiny84__) && !defined(__AVR_ATtiny85__) && !defined(__AVR_ATtiny44__) && !defined(__AVR_ATtiny45__)
         if (DEBUG) {
             Serial.print("OK");
             for (uint8_t i = 0; i < len + 2 && i < 25; ++i) {
@@ -127,6 +128,7 @@ uint8_t RF12::poll() {
             }
             Serial.println();
         }
+#endif
         
         if ((rf12_hdr & RF12_HDR_CTL) && len == 1) {
             // last send acked, move any remaining in-progress tx data to head
@@ -158,6 +160,7 @@ uint8_t RF12::poll() {
         txPending = 1;
         
     if (txPending && rf12_canSend()) {
+#if !defined(__AVR_ATtiny84__) && !defined(__AVR_ATtiny85__) && !defined(__AVR_ATtiny44__) && !defined(__AVR_ATtiny45__)
         if (DEBUG) {
             Serial.print(" -> #");
             Serial.print(txbase, HEX);
@@ -168,6 +171,7 @@ uint8_t RF12::poll() {
             }
             Serial.println();
         }
+#endif
         
         txPending = 0;
         rf12_sendStart(RF12_HDR_ACK, txbuf, txbase); // send data, request ack

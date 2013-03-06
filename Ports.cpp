@@ -1219,6 +1219,7 @@ void Scheduler::cancel(byte task) {
 }
 
 #ifdef Stream_h // only available in recent Arduino IDE versions
+#if !defined(__AVR_ATtiny84__) && !defined(__AVR_ATtiny85__) && !defined(__AVR_ATtiny44__) && !defined(__AVR_ATtiny45__)
 
 InputParser::InputParser (byte* buf, byte size, Commands* ctab, Stream& stream)
         : buffer (buf), limit (size), cmds (ctab), io (stream) {
@@ -1351,4 +1352,5 @@ InputParser& InputParser::operator >> (const char*& v) {
     return *this;
 }
 
+#endif
 #endif // Stream_h

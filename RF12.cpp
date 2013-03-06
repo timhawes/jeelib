@@ -646,11 +646,15 @@ uint8_t rf12_config (uint8_t show) {
             group = b;
         else if (b == 0)
             break;
+#if !defined(__AVR_ATtiny84__) && !defined(__AVR_ATtiny85__) && !defined(__AVR_ATtiny44__) && !defined(__AVR_ATtiny45__)
         else if (show)
             Serial.print((char) b);
+#endif
     }
+#if !defined(__AVR_ATtiny84__) && !defined(__AVR_ATtiny85__) && !defined(__AVR_ATtiny44__) && !defined(__AVR_ATtiny45__)
     if (show)
         Serial.println();
+#endif
     
     rf12_initialize(nodeId, nodeId >> 6, group);
     return nodeId & RF12_HDR_MASK;

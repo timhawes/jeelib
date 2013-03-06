@@ -668,6 +668,7 @@ public:
 };
 
 #ifdef Stream_h // only available in recent Arduino IDE versions
+#if !defined(__AVR_ATtiny84__) && !defined(__AVR_ATtiny85__) && !defined(__AVR_ATtiny44__) && !defined(__AVR_ATtiny45__)
 
 /// Simple parser for input data and one-letter commands
 class InputParser {
@@ -707,6 +708,7 @@ private:
     Stream& io;
 };
 
+#endif
 #endif // Stream_h
 
 #endif
